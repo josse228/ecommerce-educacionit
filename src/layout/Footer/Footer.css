@@ -1,0 +1,106 @@
+/*
+---------------------ESTILOS DEL FOOTER----------------------
+*/
+
+.footer-container {
+    width: 100%;
+    height: 200px;
+    background-color: rgb(243, 240, 240);
+    color: rgb(0,0,0);
+}
+
+.footer-content {
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .footer-enterprise {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 5px;
+        font-size: 0.9rem;
+
+        & > :first-child { 
+            font-size: 1.2rem;
+        }
+    }
+
+    .footer-contact {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.9rem;
+        align-items: flex-start;
+        row-gap: 5px;
+
+        & > :first-child { 
+            font-size: 1.2rem;
+        }
+    }
+
+    .footer-social-media{
+        display: flex;
+        flex-direction: row;
+        font-size: 1.5rem;
+        gap: 15px;
+    }
+}
+
+
+/*--------------- Estilos para Mobile -----------------------------*/
+@media (min-width: 320px) and (max-width: 767px) {
+    
+
+    .main-container {
+        width: 95%;
+    }
+
+
+/*------------FOOTER SECTION------------------*/
+
+    .footer-container {
+        height: auto;
+        padding: 1.5rem;
+
+        .main-icon {
+            height: 80px;
+            width:auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .footer-element {
+                width: 300px;
+            }
+
+            .footer-enterprise {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-contact {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+        }
+    }
+}
+
+
+
+/*--------------- Estilos para Tablets -----------------------------*/
+@media (min-width: 768px) and (max-width: 1024px)  {
+
+    .main-container {
+        width: auto;
+        padding: 10px;
+    }
+
+}

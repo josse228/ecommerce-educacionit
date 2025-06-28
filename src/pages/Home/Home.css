@@ -1,0 +1,199 @@
+/*
+-------------------------MAIN CONTENT (PRODUCTOS)---------------------------
+*/
+
+.main-content {
+    margin: 5rem auto;
+    height: auto;
+}
+
+.cards-main-content {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 30px;
+    justify-content: center;
+
+    .card-product {
+        width: 350px;
+        padding: 10px 15px;
+        display: flex;
+        flex-flow: column wrap;
+        flex-basis: auto;
+        color:black;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        position:relative;
+        transition: box-shadow 0.3s ease;
+
+        >img{
+            height: 150px;
+            object-fit: cover;
+        }
+        >h3{
+            font-weight: 600;
+            color: rgba(252, 139, 2);
+        }
+            
+        &:hover{
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    .card-product :nth-child(3){
+        font-size: 0.8rem;
+    }
+    .card-product :nth-child(4){
+        font-size: 1.2rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        align-items: center;
+    }
+    .card-product :nth-child(5){
+        font-size: 0.8rem;
+    }
+
+    .card-product :nth-child(6){
+        position:absolute;
+        font-size: 1rem;
+        top: 15px;
+        right: 15px;
+        cursor: pointer;
+    }
+
+    .card-product :nth-child(7){
+        position:absolute;
+        font-size: 1rem;
+        top: 45px;
+        right: 15px;
+        cursor: pointer;
+    }
+}
+
+/*
+---------------------------SECCION PRODUCTOS DESTACADOS--------------------------------
+*/
+
+.highlights-container{
+    background-color: rgb(243, 240, 240);
+    margin-top: 10rem;
+    margin-bottom: 5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border-radius: 1rem;
+}
+
+.highlights-title {
+    display: flex;
+    justify-content: center;
+    color:black;
+    font-size: 1.5rem;
+}
+
+.highlights-container 
+.cards-main-content .card-product {
+    background-color: white;
+    border-radius: 5px;
+}
+
+/*---------------------------------PRODUCT DETAIL-----------------------------*/
+
+.product-detail-container {
+    display: flex;
+    flex-direction: column;
+    color: black;
+    margin: 70px auto;
+
+    .product-image-detail {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+        padding: 10px;
+
+        .image-detail {
+            flex:1;
+            
+            >img {
+                height: 500px;
+                object-fit: cover;
+            }
+        }
+
+        .text-detail {
+            flex:1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .price-detail {
+                font-size: 1.4rem;
+                font-weight: 600;
+                color: rgba(252, 139, 2);
+            }
+        }
+    }
+
+    .product-description{
+        margin-top: 40px;
+        text-align: center;
+    }
+}
+
+/*--------------- Estilos para Mobile -----------------------------*/
+@media (min-width: 320px) and (max-width: 767px) {
+    
+
+    .main-container {
+        width: 95%;
+    }
+
+
+/*--------------SECCION PRODUCTOS DESTACADOS-------------*/
+    .highlights-title {
+        text-align: center;
+    }
+
+    .cards-main-content {
+        .card-product {
+            padding: 10px;
+            width: 290px;
+        }
+    }
+
+/*-----------------------------PRODUCT DETAIL---------------------*/
+    .product-detail-container{
+        .product-detail-container {
+            display: flex;
+            flex-direction: column;
+            color: black;
+            margin: 70px auto
+        }
+
+        .product-image-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 10px;
+        }
+    }
+
+    .product-description {
+        display: none;
+    }
+
+}
+
+
+
+/*--------------- Estilos para Tablets -----------------------------*/
+@media (min-width: 768px) and (max-width: 1024px)  {
+
+/*------------MAIN CONTENT------------------*/
+
+    .main-content {
+        margin-bottom: 0;
+    }
+
+}

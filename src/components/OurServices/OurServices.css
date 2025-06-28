@@ -1,0 +1,83 @@
+/*
+-----------------------------ESTILOS SERVICIOS-----------------------------------
+*/
+
+.services-container {
+    margin-bottom: 10rem;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-around;
+
+    .card-service {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 10px;
+
+        & :nth-child(1){
+            font-size: 3rem;
+            color: rgb(37, 96, 235);
+        }
+        & :nth-child(2){
+            font-size: 1.2rem;
+            color: rgb(0,0,0);
+        }
+        & :nth-child(3){
+            font-size: 0.8rem;
+            color: rgb(0,0,0);
+        }
+    }
+}
+
+
+/*--------------- Estilos para Mobile -----------------------------*/
+@media (min-width: 320px) and (max-width: 767px) {
+    
+
+    .main-container {
+        width: 95%;
+    }
+
+/*--------------SERVICE SECTION-------------*/
+
+    .services-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 4rem;
+        padding: 0;
+    }
+
+}
+
+
+
+/*--------------- Estilos para Tablets -----------------------------*/
+@media (min-width: 768px) and (max-width: 1024px)  {
+
+    .main-container {
+        width: auto;
+        padding: 10px;
+    }
+
+
+/*-----------SERVICE SECTION-----------*/
+
+    .services-container {
+        margin-bottom: 6rem;
+    }
+
+    .card-service {
+        width: 250px;
+
+        & :nth-child(2) {
+            height: 58px;
+        }
+
+        p {
+            text-align: center;
+        }
+    }
+}
