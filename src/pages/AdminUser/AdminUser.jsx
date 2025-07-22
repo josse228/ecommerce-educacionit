@@ -11,7 +11,9 @@ export default function AdminUser(){
     const { register, handleSubmit, setValue, formState: {errors}, reset } = useForm();
 
     const fetchData = async() => {
-        const data = await getUsers()
+        const res = await getUsers();
+        const data = res.users
+
         setUser(data);
     }
 
@@ -48,9 +50,9 @@ export default function AdminUser(){
     }
 
     const handleEdit = (id) => {
-        const userUpdated = user.find( user => user.id === id);
+        const userUpdated = user.find( user => user._id === id);
 
-        setValue("user", userUpdated.user);
+        setValue("firstName", userUpdated.firstName);
         setValue("email", userUpdated.email);
         setValue("password", userUpdated.password);
         setValue("rol", userUpdated.rol);
@@ -59,10 +61,10 @@ export default function AdminUser(){
     }
 
     const onSubmit = async(dataUser) => {
-        // dataUser.id = crypto.randomUUID();
+
 
         if(editUser){
-            await updateUser(editUser.id, dataUser)
+            await updateUser(editUser._id, dataUser)
             .then( ()=>{
                 Swal.fire({
                     title: 'Usuario editado',
@@ -74,6 +76,7 @@ export default function AdminUser(){
             fetchData();
             setEditUser(null)
         }else{
+
             try{
                 await createUser(dataUser)
                 .then( () => {
@@ -103,11 +106,11 @@ export default function AdminUser(){
                         <h2>Agrega o edita el usuario</h2>
                         <form className="form" onSubmit={handleSubmit(onSubmit)} >
                             <div className="input-group">
-                                <label htmlFor="user">Usuario</label>
+                                <label htmlFor="firstName">Usuario</label>
                                 <input  type="text" 
-                                        id="user" 
+                                        id="firstName" 
                                         autoFocus 
-                                        {...register("user", {
+                                        {...register("firstName", {
                                             required:"El nombre del usuario es requerido"
                                         })} 
                                 />  
@@ -124,7 +127,7 @@ export default function AdminUser(){
                             </div>
                             <div className="input-group">
                                 <label htmlFor="password">Introduzca la contraseña del usuario</label>
-                                <input  type="text" 
+                                <input  type="password" 
                                         id="password" 
                                         autoFocus 
                                         {...register("password", {
@@ -165,7 +168,7 @@ export default function AdminUser(){
                             </thead>
                             <tbody>
                                 {user.map( user => (
-                                    <User   key={user.id}
+                                    <User   key={user._id}
                                                     user={user} 
                                                     handleEdit={handleEdit}
                                                     handleDelete={handleDelete}

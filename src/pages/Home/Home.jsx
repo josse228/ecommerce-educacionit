@@ -5,6 +5,7 @@ import OurServices from './../../components/OurServices/OurServices';
 import Product from '../../components/Product/Product';
 import HighlightProduct from '../../components/Product/HighlightProduct';
 
+
 function Home({ product, handleCategory, productPromotion, productHighlight }){
 
 
@@ -17,7 +18,7 @@ function Home({ product, handleCategory, productPromotion, productHighlight }){
         <section className="main-content main-container">
             <div className="cards-main-content">
                 {product.map( product => (
-                    <Product    key={product.id} 
+                    <Product    key={product._id} 
                                 product={product}/>
                 ))}
             </div>
@@ -31,7 +32,7 @@ function Home({ product, handleCategory, productPromotion, productHighlight }){
                     {productHighlight.filter( product => product.highlight)
                             .map(prod => (
                                 <HighlightProduct
-                                    key={prod.id}
+                                    key={prod._id}
                                     productH={prod}/>
                             ))}
                 </div>

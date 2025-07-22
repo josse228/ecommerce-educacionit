@@ -5,21 +5,31 @@ import Swal from 'sweetalert2';
 import ProductAdmin from '../../components/ProductAdmin/ProductAdmin';
 import { useEffect, useState } from 'react';
 
-function AdminProducts({ product, setProduct }){
+function AdminProducts( props ){
+
+    const { product, 
+            setProduct, 
+            setProductPromotion, 
+            setProductHighlight } = props
 
     const [ editProduct, setEditProduct ] = useState(null)
 
-    const { register, handleSubmit, setValue, formState: {errors}, reset } = useForm();
+    const { register, handleSubmit, setValue, reset } = useForm();
 
     const fetchData = async() => {
-        const data = await getProducts()
+        const response = await getProducts()
+        const data = response.products;
+        setProductHighlight(data);
+        setProductPromotion(data);
         setProduct(data);
+        console.log("Estoy ejecutandome")
     }
 
     useEffect(()=>{
         // Vuelvo a traer productos porque si usaba las categorias, se me filtraban en el AdminProduct :)
         fetchData()
-    },)
+        console.log("llamando a fetchdata")
+    }, [])
 
     const handleDelete = (productId) => {
         
@@ -50,9 +60,11 @@ function AdminProducts({ product, setProduct }){
     }
 
     const handleEdit = (id) => {
-        const productUpdated = product.find( product => product.id === id);
 
-        setValue("product", productUpdated.product);
+        const productUpdated = product.find( product => product._id == id);
+
+
+        setValue("name", productUpdated.name);
         setValue("price", productUpdated.price);
         setValue("description", productUpdated.description);
         setValue("image", productUpdated.image);
@@ -61,6 +73,7 @@ function AdminProducts({ product, setProduct }){
         setValue("highlight", productUpdated.highlight);
         setValue("promotion", productUpdated.promotion);
 
+        console.log(productUpdated)
         setEditProduct(productUpdated);
     }
 
@@ -68,7 +81,7 @@ function AdminProducts({ product, setProduct }){
         // dataProduct.id = crypto.randomUUID();
 
         if(editProduct){
-            await updateProduct(editProduct.id, dataProduct)
+            await updateProduct(editProduct._id, dataProduct)
             .then( ()=>{
                 Swal.fire({
                     title: 'Producto editado',
@@ -83,6 +96,7 @@ function AdminProducts({ product, setProduct }){
             try{
                 await createProduct(dataProduct)
                 .then( () => {
+                    console.log(dataProduct)
                     Swal.fire({
                         title: 'Producto agregado',
                         text: 'El producto se ha subido correctamente',
@@ -109,11 +123,11 @@ function AdminProducts({ product, setProduct }){
                     <h2>Agrega o edita tu producto</h2>
                     <form className="form" onSubmit={handleSubmit(onSubmit)} method="post" >
                         <div className="input-group">
-                            <label htmlFor="product">Producto</label>
+                            <label htmlFor="name">Producto</label>
                             <input  type="text" 
-                                    id="product" 
+                                    id="name" 
                                     autoFocus 
-                                    {...register("product", {
+                                    {...register("name", {
                                         required:"El nombre del producto es requerido"
                                     })} 
                             />  
@@ -139,7 +153,8 @@ function AdminProducts({ product, setProduct }){
                         </div>
                         <div className="input-group">
                             <label htmlFor="image">Introduzca la URL de la imagen</label>
-                            <input  type="text" 
+                            <input  type="file"
+                                    accept='image/*'
                                     id="image" 
                                     autoFocus 
                                     {...register("image", {
@@ -176,12 +191,14 @@ function AdminProducts({ product, setProduct }){
                             <label htmlFor="highlight">Destacado</label>
                             <input  type="checkbox" 
                                     id="highlight" 
+                                    value={true}
                                     {...register("highlight")}  />
                         </div>
                         <div className="input-group">
                             <label htmlFor="promotion">Oferta</label>
                             <input  type="checkbox" 
-                                    id="promotion" 
+                                    id="promotion"
+                                    value={true}
                                     {...register("promotion")}  />
                         </div>
                         <div className="input-group">
@@ -206,7 +223,7 @@ function AdminProducts({ product, setProduct }){
                         </thead>
                         <tbody>
                             {product.map( product => (
-                                <ProductAdmin   key={product.id}
+                                <ProductAdmin   key={product._id}
                                                 product={product} 
                                                 handleEdit={handleEdit}
                                                 handleDelete={handleDelete}

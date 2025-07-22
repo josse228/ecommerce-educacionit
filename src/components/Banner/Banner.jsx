@@ -15,7 +15,7 @@ export default function Banner({productPromotion}){
                     <div className="article-deals-right">
                         {productPromotion.filter( prod => prod.promotion)
                             .map( prod => (
-                            <PromotionProduct   key={prod.id} 
+                            <PromotionProduct   key={prod._id} 
                                                 productPromotion={prod}/>
                         ))}
                         {/* <article className="article-deal">

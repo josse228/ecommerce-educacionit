@@ -1,11 +1,13 @@
 import axios from 'axios'
 
-const BASE_URL = 'https://685f200fc55df675589da167.mockapi.io/'
+// const BASE_URL = 'https://685f200fc55df675589da167.mockapi.io/'
+
+const BASE_URL = import.meta.env.VITE_SERVER_API
 
 export const getUsers = async() =>{
 
     try{
-        const usersData = await axios.get(`${BASE_URL}/user`);
+        const usersData = await axios.get(`${BASE_URL}/users`);
         return usersData.data
     }catch(err){
         console.log(err)
@@ -13,18 +15,15 @@ export const getUsers = async() =>{
     }
 }
 
-// export const getUser = async(id)=>{
-//     try{
-//         const userData = await axios.get(`${BASE_URL}/users/${id}`)
-//         return userData.data
-//     }catch(err){
-//         console.log(err)
-//     }
-// }
-
 export const createUser = async( dataUser ) => {
     try{
-        await axios.post(`${BASE_URL}/user`, dataUser)
+        const token = localStorage.getItem('token');
+
+        await axios.post(`${BASE_URL}/users`, dataUser, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         .then( () => console.log('Usuario agregado correctamente'))
     }catch(err){
         console.log(err)
@@ -33,7 +32,16 @@ export const createUser = async( dataUser ) => {
 
 export const updateUser = async( id, dataUser ) => {
     try{
-        await axios.put(`${BASE_URL}/user/${id}`, dataUser)
+        const token = localStorage.getItem('token');
+
+        console.log(id)
+        console.log(dataUser)
+
+        await axios.put(`${BASE_URL}/users/${id}`, dataUser, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         .then( () => console.log("Usuario editado correctamente"))
     }catch(err){
         console.log(err)
@@ -42,7 +50,13 @@ export const updateUser = async( id, dataUser ) => {
 
 export const deleteUser = async (id) => {
     try{
-        await axios.delete(`${BASE_URL}/user/${id}`)
+        const token = localStorage.getItem('token')
+
+        await axios.delete(`${BASE_URL}/users/${id}`,{
+            headers: {
+                Authorization:`Bearer ${token}`
+            }
+        })
     }catch(err){
         console.log(err)
     }

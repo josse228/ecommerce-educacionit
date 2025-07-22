@@ -1,19 +1,32 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faCartShopping } from'@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
+import { CartContext } from "../../context/CartContext";
+import { useContext } from "react";
 
 export default function HighlightProduct({ productH }){
+
+    const { cart, 
+            addItems, 
+            removeFromCart } = useContext(CartContext);
+
+    const existsInCart = cart.find( item => item._id === productH._id)
+
     return (
-        <Link to={`/product/${productH.id}`}>
                 <article className="card-product">
-                                <img src={productH.image} alt={productH.product} />
-                                <h3>{productH.product}</h3>
-                                <p>{productH.description}</p>
+                                <img src={`${import.meta.env.VITE_FILE_API}/products/${productH.image}`} alt={productH.name} />
+                                <h3>{productH.name}</h3>
+                                <p className="card-description">{productH.description}</p>
                                 <p>{productH.price}</p>
-                                <p className="btn">Comprar</p>
+                                <Link to={`/product/${productH._id}`}><p className="btn">Comprar</p></Link>
                                 <button><i><FontAwesomeIcon icon={faHeart} /></i></button>
-                                <button><i><FontAwesomeIcon icon={faCartShopping} /></i></button>
+                                { cart.length > 0 && existsInCart
+                                    ?  <span className="button-cart">
+                                            <button onClick={ () => addItems(productH)}>+</button>
+                                            <button onClick={ () => removeFromCart(productH._id)}>-</button>
+                                        </span> 
+                                    : <button onClick={ () => addItems(productH)}><i><FontAwesomeIcon icon={faCartShopping} /></i></button>  
+                                }             
                 </article>
-        </Link>
     )  
 }

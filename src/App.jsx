@@ -14,6 +14,9 @@ import { Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProducts } from "./services/productService";
 import ProductDetail from "./components/Product/ProductDetail";
+import { AuthProvider } from './context/AuthContext';
+import AdminGuard from "./guard/AdminGuard";
+
 
 function App(){
     const [ product, setProduct ] = useState([]);
@@ -21,8 +24,11 @@ function App(){
     const [ productHighlight , setProductHighlight ] = useState([]); // Creo un state nuevo para no pisar en cada fetch de mi handleCategory
 
     const fetchData = async() => {
+        console.log("estoy ejecutandome")
         // Guardo una copia en cada state para todas mis secciones
-        const data = await getProducts()
+        const response = await getProducts();
+        const data = response.products
+
         setProduct(data);
         setProductPromotion(data);
         setProductHighlight(data);
@@ -31,6 +37,8 @@ function App(){
 
     const handleCategory = async (category) => {
      const data = await fetchData(); // Traigo todos los productos de nuevo
+
+        console.log("Estoy ejecutandome")
 
         if (category === 'all') {
             setProduct(data); // Muestro todos si me viene la categoria "all"
@@ -42,52 +50,74 @@ function App(){
 
     useEffect(() => {
         fetchData();
+        console.log("Estoy ejecutandome")
     },[])
 
 
-    return <>
-        <Header />
+    return (
 
-        <Routes>
+        <AuthProvider>
+                <Header />
 
-            <Route  
-                path="/" 
-                element={
-                    <Home 
-                        productHighlight = {productHighlight}
-                        productPromotion={productPromotion}
-                        product={product}
-                        handleCategory={handleCategory}/>} 
-                />
-            <Route 
-                path="/products" 
-                element={
-                    <Products 
-                        product={product}/>}
-                />
-            <Route path="/aboutus" element={<AboutUs />}/>
-            <Route path="/contact" element={<Contact />}/>
-            <Route  
-                path="/adminproducts" 
-                element={
-                    <AdminProducts 
-                        product={product} 
-                        setProduct={setProduct}/>}
-                />
-            <Route 
-                path="/product/:id" 
-                element={
-                <ProductDetail />}/>
-            <Route path="/adminuser" element={<AdminUser />}/>
-            <Route path="/user" element={<User />}/>
-            <Route path="/login" element={<Login />}/>
-            <Route path="/register" element={<Register />}/>
-            <Route path="*" element={<h2>Not Found</h2>}/>
+                    <Routes>
+
+                        <Route  
+                            path="/" 
+                            element={
+                                <Home 
+                                    productHighlight = {productHighlight}
+                                    productPromotion={productPromotion}
+                                    product={product}
+                                    handleCategory={handleCategory}/>} 
+                            />
+                        <Route 
+                            path="/products" 
+                            element={
+                                <Products 
+                                    product={product}/>}
+                            />
+                        <Route path="/aboutus" element={<AboutUs />}/>
+                        <Route path="/contact" element={<Contact />}/>
+                        <Route  
+                            path="/adminproducts" 
+                            element={
+                                <AdminGuard>
+                                    <AdminProducts 
+                                        product={product} 
+                                        setProduct={setProduct}
+                                        productPromotion={productPromotion}
+                                        setProductPromotion={setProductPromotion}
+                                        productHighlight={productHighlight}
+                                        setProductHighlight={setProductHighlight}
+                                        />
+                                </AdminGuard>
+                                }
+                        />
+                        <Route 
+                            path="/product/:id" 
+                            element={
+                            <ProductDetail />}/>
+                        <Route 
+                            path="/adminuser" 
+                            element={
+                                <AdminGuard>
+                                    <AdminUser />
+                                </AdminGuard>
+                                }
+                        />
+                        <Route path="/user" element={<User />}/>
+                        <Route path="/login" element={<Login />}/>
+                        <Route path="/register" element={<Register />}/>
+                        <Route path="*" element={<h2>Not Found</h2>}/>
+                    
+                    </Routes>
+
+                <Footer />
+        </AuthProvider>
         
-        </Routes>
-
-        <Footer />
-    </>
+    )
 }
+
+//Tenia un fragment <> qur envolvia todos mis componentes
 
 export default App;
