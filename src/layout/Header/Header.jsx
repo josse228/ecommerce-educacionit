@@ -8,6 +8,10 @@ import { AuthContext } from '../../context/AuthContext';
 import { CartContext } from "../../context/CartContext";
 import { createOrder } from '../../services/orderService';
 
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+
+initMercadoPago('APP_USR-969d33ea-1823-45d0-a6d0-5e76be646f93')
+
 
 function Header(){
 
@@ -86,6 +90,7 @@ function Header(){
                                 <button className='btn' onClick={ () => createOrder(user, cart, total)}>
                                     Ir a pagar
                                 </button>
+                                <Wallet initialization={{ preferenceId: '1842451478-ab89c99b-c913-4545-beae-6e9036dd9b5a'}} />
                             </div>
                             : ''}
                         { cart.length == 0 && <div className='empty-shopping-cart'>Tu carrito esta vacio <FontAwesomeIcon style={{color:"rgba(252, 139, 2)", fontSize:"2rem"}} icon={faExclamation} /></div>}

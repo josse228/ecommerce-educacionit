@@ -12,5 +12,13 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- PARA RENDER -->
+    <script>
+      const path = window.location.pathname;
+      if (!path.startsWith('/')) {
+        window.location.href = '/';
+      }
+    </script>
   </body>
 </html>
