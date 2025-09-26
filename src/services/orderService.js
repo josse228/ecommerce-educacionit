@@ -1,4 +1,5 @@
 import axios from "axios";
+import { mercadoPagoService } from "./mercadoPago";
 
 const BASE_URL = import.meta.env.VITE_SERVER_API;
 
@@ -24,12 +25,13 @@ export const createOrder = async ( user, cart, total ) => {
 
         console.log(cart, user, total)
 
-        const { id } = user
+        const { id, email } = user
 
         let newOrder = {
             products: [],
             total: total,
             user: id,
+            email: email,
             status: "pending"
         };
 
@@ -44,8 +46,17 @@ export const createOrder = async ( user, cart, total ) => {
             }
         })
 
-        const allOrders = await getOrders();
-        console.log("Estas son todas mis ordenes creadas en la base de datos", allOrders)
+        const dataToMercadoPago = cart.map(item => ({
+            title: item.name,
+            quantity: item.quantity,
+            price: item.price,
+        }));
+
+    const response = await mercadoPagoService(dataToMercadoPago);
+
+    console.log(response)
+
+    return response // ← devolvés el preferenceId
 
     }catch(err){
         console.log(err);

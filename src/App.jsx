@@ -10,6 +10,7 @@ import Login from "./pages/Login/Login"
 import Register from "./pages/Register/Register"
 import AboutUs from "./pages/AboutUs/AboutUs"
 import Footer from "./layout/Footer/Footer";
+import Checkout from "./pages/Checkout/Checkout";
 import { Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProducts } from "./services/productService";
@@ -108,6 +109,7 @@ function App(){
                         <Route path="/user" element={<User />}/>
                         <Route path="/login" element={<Login />}/>
                         <Route path="/register" element={<Register />}/>
+                        <Route path="/checkout" element={<Checkout />} />
                         <Route path="*" element={<h2>Not Found</h2>}/>
                     
                     </Routes>
