@@ -84,7 +84,7 @@ function Header(){
                                     <div className='info-shopping-cart'><strong>Total $ARS: </strong>{total}</div>
                                     <button onClick={ () => clearCart() } className='trash-shopping-cart'><FontAwesomeIcon icon={faTrashCan} /></button>
                                 </div>
-                                <NavLink to="/checkout" className='btn'>
+                                <NavLink to="/checkout" onClick={ () => toggleOpen() }  className='btn'>
                                     Ir a Pagar
                                 </NavLink>
                             </div>
@@ -116,7 +116,7 @@ function Header(){
                             ? <NavLink to="/user" className={({isActive}) => `nav-item ${isActive ? 'active' : ''}` }><i><FontAwesomeIcon icon={faUser}/></i> Usuario</NavLink>
                             : null}
                         {user 
-                            ? <li className='nav-item'><button onClick={()=> logout()}>Cerrar Sesión</button></li>
+                            ? <NavLink to="/login"> <li className='nav-item'><button onClick={()=> logout()}>Cerrar Sesión</button></li></NavLink>
                             : <NavLink to="/login" className={({isActive}) => `nav-item ${isActive ? 'active' : ''}` }>Iniciar Sesión</NavLink>}
                         <NavLink to="/register" className={({isActive}) => `nav-item ${isActive ? 'active' : ''}` }>Regístrate</NavLink>
                     </ul>

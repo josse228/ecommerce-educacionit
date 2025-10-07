@@ -46,11 +46,21 @@ export const createOrder = async ( user, cart, total ) => {
             }
         })
 
-        const dataToMercadoPago = cart.map(item => ({
-            title: item.name,
-            quantity: item.quantity,
-            price: item.price,
-        }));
+        // const dataToMercadoPago = cart.map(item => ({
+        //     title: item.name,
+        //     quantity: item.quantity,
+        //     price: item.price,
+        // }));
+
+        const dataToMercadoPago = {
+            items: [],
+            email: email
+        }
+
+        cart.forEach( item => {
+            const { name, quantity, price } = item;
+            dataToMercadoPago.items.push({ title: name, quantity: quantity, price: price})
+        })
 
     const response = await mercadoPagoService(dataToMercadoPago);
 

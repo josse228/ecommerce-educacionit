@@ -10,7 +10,12 @@ import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 
 
 export default function Checkout() {
-    const { cart, total } = useContext(CartContext);
+    const { 
+        cart, 
+        addItems, 
+        removeFromCart, 
+        total } = useContext(CartContext);
+
     const { user } = useContext(AuthContext);
     const [preferenceId, setPreferenceId] = useState(null);
 
@@ -26,33 +31,65 @@ export default function Checkout() {
     }, []);
 
     return (
-        <div className="container">
-        <h2>Resumen de Compra</h2>
+        <>
+            <div className="container">
+                <h2>Resumen de Compra</h2>
+                <div className="cart-summary">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {cart.map((item) => (
+                            <tr key={item._id}>
+                            <td className="product-info">
+                                <img src={`${import.meta.env.VITE_FILE_API}/products/${item.image}`} alt={item.name} />
+                                <span>{item.name}</span>
+                            </td>
+                            <td>${item.price}</td>                
+                            <td>
+                                <div className='button-cart'>
+                                    <button onClick={ () => removeFromCart(item._id)}>-</button>
+                                    {item.quantity}
+                                    <button onClick={ () => addItems(item)}>+</button> 
+                                </div>
+                            </td>
+                            <td>$ARS: {item.price * item.quantity}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colSpan="4" style={{ textAlign: 'right', fontWeight: 'bold' }}>Total de tu compra:</td>
+                                <td style={{ fontWeight: 'bold' }}>
+                                    ${total}
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
 
-        <div className="summary">
-            {cart.map(product => (
-            <div key={product._id}>
-                <p><strong>Producto:</strong> {product.name}</p>
-                <p><strong>Cantidad:</strong> {product.quantity}</p>
-                <p><strong>Precio:</strong> {product.price}</p>
             </div>
-            ))}
-            <p>Total $ARS: {total}</p>
-        </div>
 
-        <div className="main-form main-container">
-            <h2>Tu compra se enviará a tu correo electrónico</h2>
-            <p><strong>{user.email}</strong></p>
-            <button className="input-group" onClick={handlePago}>
-            Ir a Pagar
-            </button>
-        </div>
+            <div className="main-form main-container">
+                <h2>Tu compra se enviará a tu correo electrónico</h2>
+                <p><strong>{user.email}</strong></p>
+                <button className="btn input-group" onClick={handlePago}>
+                Pagar con Mercado Pago
+                </button>
+            </div>
 
-        <div className="checkout-btn">
-            {preferenceId && (
-            <Wallet initialization={{ preferenceId }} />
-            )}
-        </div>
-        </div>
+            <div className="checkout-btn">
+                {preferenceId && (
+                <Wallet initialization={{ preferenceId }} />
+                )}
+            </div>
+        </>
     );
 }
