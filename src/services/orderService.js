@@ -36,8 +36,8 @@ export const createOrder = async ( user, cart, total ) => {
         };
 
         cart.forEach( item => {
-            const { _id, quantity, price } = item;
-            newOrder.products.push({ productId: _id, quantity, price: price * quantity })
+            const { _id, name, quantity, price } = item;
+            newOrder.products.push({ productId: _id, name: name, quantity, price: price * quantity })
         }) 
         
         await axios.post(`${BASE_URL}/orders`, newOrder, {
