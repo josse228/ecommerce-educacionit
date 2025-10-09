@@ -7,15 +7,15 @@ export default function ConfirmationPurchase() {
 
     const [ orderBD, setOrderBD ] = useState(null)
 
-    const queryParams = new URLSearchParams(window.location.search);
-    const collectionId = queryParams.get("collection_id");
-    const status = queryParams.get("collection_status"); // o "status"
+    // const queryParams = new URLSearchParams(window.location.search);
+    // const collectionId = queryParams.get("collection_id");
+    // const status = queryParams.get("collection_status"); // o "status"
 
     const getOrders = async() => {
 
         try{
 
-            const response = await axios.get(`${BASE_URL}/confirmationPurchase?collection_id=${collectionId}&collection_status=${status}`);
+            const response = await axios.get(`${BASE_URL}/confirmationPurchase`);
             setOrderBD(response.data.order)
 
         }catch(err){
