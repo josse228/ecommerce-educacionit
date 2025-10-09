@@ -21,13 +21,13 @@ export const createOrder = async ( user, cart, total ) => {
 
     try{
 
-        const token = localStorage.getItem('token');
+        let token = localStorage.getItem('token');
 
-        const { id, email } = user
+        let { id, email } = user
         console.log(cart, user, total)
 
         //Data para MP
-        const dataToMercadoPago = {
+        let dataToMercadoPago = {
             items: [],
             email: email
         }
@@ -37,11 +37,13 @@ export const createOrder = async ( user, cart, total ) => {
             dataToMercadoPago.items.push({ title: name, quantity: quantity, price: price})
         })
         //Response de MP
-        const response = await mercadoPagoService(dataToMercadoPago);
+        let response = await mercadoPagoService(dataToMercadoPago);
 
-        const preferenceIdOrder = response.data.id;
-        const collector = preferenceIdOrder.split("-")[0]
+        let preferenceIdOrder = response.data.id;
 
+        let collector = preferenceIdOrder.split("-")[0]
+
+        console.log("collector--->", collector)
         console.log(response.data.id)
 
         let newOrder = {
