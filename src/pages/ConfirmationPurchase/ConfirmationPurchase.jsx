@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function ConfirmationPurchaseimport() {
+export default function ConfirmationPurchase() {
 
     const BASE_URL = import.meta.env.VITE_SERVER_API;
 
