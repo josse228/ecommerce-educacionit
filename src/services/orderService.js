@@ -27,9 +27,13 @@ export const createOrder = async ( user, cart, total ) => {
         console.log(cart, user, total)
 
         //Data para MP
+
+        let external_reference = Date.now();
+
         let dataToMercadoPago = {
             items: [],
-            email: email
+            email: email,
+            external_reference,
         }
 
         cart.forEach( item => {
