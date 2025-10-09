@@ -23,6 +23,7 @@ export const createOrder = async ( user, cart, total ) => {
 
         const token = localStorage.getItem('token');
 
+        const { id, email } = user
         console.log(cart, user, total)
 
         //Data para MP
@@ -40,8 +41,6 @@ export const createOrder = async ( user, cart, total ) => {
 
         console.log(response.data.id)
 
-        const { id, email } = user
-
         let newOrder = {
             products: [],
             mercadoPagoPreferenceId: response.data.id,
@@ -51,10 +50,13 @@ export const createOrder = async ( user, cart, total ) => {
             status: "pending"
         };
 
+
         cart.forEach( item => {
             const { _id, name, quantity, price } = item;
             newOrder.products.push({ productId: _id, name: name, quantity, price: price * quantity })
         }) 
+
+        console.log(newOrder)
         
         await axios.post(`${BASE_URL}/orders`, newOrder, {
             headers: {
