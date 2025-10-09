@@ -28,12 +28,12 @@ export const createOrder = async ( user, cart, total ) => {
 
         //Data para MP
 
-        let external_reference = Date.now();
+        let external_referenceCreate = Date.now();
 
         let dataToMercadoPago = {
             items: [],
             email: email,
-            external_reference,
+            external_referenceCreate,
         }
 
         cart.forEach( item => {
@@ -43,17 +43,14 @@ export const createOrder = async ( user, cart, total ) => {
         //Response de MP
         let response = await mercadoPagoService(dataToMercadoPago);
 
-        let preferenceIdOrder = response.data.id;
+        let external_reference = response.data.external_reference;
 
-        let collector = preferenceIdOrder.split("-")[0]
-
-        console.log("collector--->", collector)
-        console.log(response.data.id)
+        console.log(response.data.external_reference)
 
         let newOrder = {
             products: [],
             mercadoPagoPreferenceId: response.data.id,
-            collector_id: collector,
+            external_reference,
             total: total,
             user: id,
             email: email,
