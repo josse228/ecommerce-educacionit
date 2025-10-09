@@ -43,9 +43,9 @@ export const createOrder = async ( user, cart, total ) => {
         //Response de MP
         let response = await mercadoPagoService(dataToMercadoPago);
 
-        let external_reference = response.data.external_reference;
+        let external_reference = response.data.preference.external_reference;
 
-        console.log(response.data.external_reference)
+        console.log(response)
 
         let newOrder = {
             products: [],
