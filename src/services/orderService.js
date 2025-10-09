@@ -39,11 +39,15 @@ export const createOrder = async ( user, cart, total ) => {
         //Response de MP
         const response = await mercadoPagoService(dataToMercadoPago);
 
+        const preferenceIdOrder = response.data.id;
+        const collector = preferenceIdOrder.split("-")[0]
+
         console.log(response.data.id)
 
         let newOrder = {
             products: [],
             mercadoPagoPreferenceId: response.data.id,
+            collector_id: collector,
             total: total,
             user: id,
             email: email,

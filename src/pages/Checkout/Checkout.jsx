@@ -23,6 +23,7 @@ export default function Checkout() {
         const res = await createOrder(user, cart, total);
         console.log(res)
         const id = res.data.id
+        console.log("PREFERENCEID", id)
         if (id) setPreferenceId(id);
     };
 
