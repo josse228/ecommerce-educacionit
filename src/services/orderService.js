@@ -50,7 +50,7 @@ export const createOrder = async ( user, cart, total ) => {
         let newOrder = {
             products: [],
             mercadoPagoPreferenceId: response.data.id,
-            external_reference,
+            external_reference: external_reference,
             total: total,
             user: id,
             email: email,
