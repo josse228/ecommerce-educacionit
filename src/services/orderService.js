@@ -30,10 +30,10 @@ export const createOrder = async ( user, cart, total ) => {
 
         let external_referenceCreate = Date.now();
 
-        let dataToMercadoPago = {
+        const dataToMercadoPago = {
             items: [],
             email: email,
-            external_referenceCreate,
+            external_referenceCreate: external_referenceCreate
         }
 
         cart.forEach( item => {
@@ -41,16 +41,17 @@ export const createOrder = async ( user, cart, total ) => {
             dataToMercadoPago.items.push({ title: name, quantity: quantity, price: price})
         })
         //Response de MP
-        let response = await mercadoPagoService(dataToMercadoPago);
+        const response = await mercadoPagoService(dataToMercadoPago);
 
-        let external_reference = response.data.preference.external_reference;
+        const external_reference = response.data.preference.external_reference;
 
-        console.log(response)
+        console.log("ESTE ES EL RESPONSE", response)
+        console.log("ESTE ES EL EXTERNAL REFERENCE" ,external_reference)
 
-        let newOrder = {
+        const newOrder = {
             products: [],
             mercadoPagoPreferenceId: response.data.id,
-            external_reference: external_reference,
+            external_reference: external_referenceCreate,
             total: total,
             user: id,
             email: email,
@@ -63,7 +64,7 @@ export const createOrder = async ( user, cart, total ) => {
             newOrder.products.push({ productId: _id, name: name, quantity, price: price * quantity })
         }) 
 
-        console.log(newOrder)
+        console.log("ESTA ES LA ORDEN ENVIADA AL BACK ->",newOrder)
         
         await axios.post(`${BASE_URL}/orders`, newOrder, {
             headers: {
