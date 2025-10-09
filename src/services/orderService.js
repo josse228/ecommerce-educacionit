@@ -25,10 +25,26 @@ export const createOrder = async ( user, cart, total ) => {
 
         console.log(cart, user, total)
 
+        //Data para MP
+        const dataToMercadoPago = {
+            items: [],
+            email: email
+        }
+
+        cart.forEach( item => {
+            const { name, quantity, price } = item;
+            dataToMercadoPago.items.push({ title: name, quantity: quantity, price: price})
+        })
+        //Response de MP
+        const response = await mercadoPagoService(dataToMercadoPago);
+
+        console.log(response.data.id)
+
         const { id, email } = user
 
         let newOrder = {
             products: [],
+            mercadoPagoPreferenceId: response.data.id,
             total: total,
             user: id,
             email: email,
@@ -51,20 +67,6 @@ export const createOrder = async ( user, cart, total ) => {
         //     quantity: item.quantity,
         //     price: item.price,
         // }));
-
-        const dataToMercadoPago = {
-            items: [],
-            email: email
-        }
-
-        cart.forEach( item => {
-            const { name, quantity, price } = item;
-            dataToMercadoPago.items.push({ title: name, quantity: quantity, price: price})
-        })
-
-    const response = await mercadoPagoService(dataToMercadoPago);
-
-    console.log(response)
 
     return response // ← devolvés el preferenceId
 
