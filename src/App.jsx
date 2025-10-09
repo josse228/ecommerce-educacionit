@@ -11,6 +11,7 @@ import Register from "./pages/Register/Register"
 import AboutUs from "./pages/AboutUs/AboutUs"
 import Footer from "./layout/Footer/Footer";
 import Checkout from "./pages/Checkout/Checkout";
+import ConfirmationPurchase from "./pages/ConfirmationPurchase/ConfirmationPurchase";
 import { Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProducts } from "./services/productService";
@@ -110,6 +111,7 @@ function App(){
                         <Route path="/login" element={<Login />}/>
                         <Route path="/register" element={<Register />}/>
                         <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/confirmationPurchase" element={<ConfirmationPurchase />} />
                         <Route path="*" element={<h2>Not Found</h2>}/>
                     
                     </Routes>
