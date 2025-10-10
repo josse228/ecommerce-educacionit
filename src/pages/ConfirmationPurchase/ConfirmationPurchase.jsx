@@ -57,8 +57,8 @@ export default function ConfirmationPurchase() {
                 <div>
                 <p>Gracias por tu compra, {orderBD.email}</p>
                 <ul>
-                    {orderBD.products.map((item, index) => (
-                    <li key={index}>{item.name} - Cantidad: {item.quantity}</li>
+                    {orderBD.products.map((item) => (
+                    <li key={item.productId}>{item.name} - Cantidad: {item.quantity}</li>
                     ))}
                 </ul>
                 </div>
