@@ -21,13 +21,24 @@ export default function ConfirmationPurchase() {
     const merchant_account_id = queryParams.get("merchant_account_id")
 
 
-    console.log()
+    console.log("ESTOY INVOCANDO la funcion ConfirmatonPurchase",             
+            collection_id,
+            collection_status,
+            payment_id,
+            status,
+            external_reference,
+            payment_type,
+            merchant_order_id,
+            preference_id,
+            site_id,
+            processing_mode,
+            merchant_account_id)
 
     const getOrders = async() => {
 
         try{
 
-            const response = await axios.get(`${BASE_URL}/confirmationPurchase/?collection_id=${collection_id}&collection_status=${collection_status}&payment_id=${payment_id}&status=${status}&external_reference=${external_reference}&payment_type=${payment_type}&merchant_order_id=${merchant_order_id}&preference_id=${preference_id}&site_id=${site_id}&processing_mode=${processing_mode}&merchant_account_id=${merchant_account_id}`);
+            const response = await axios.get(`${BASE_URL}/confirmationPurchase?collection_id=${collection_id}&collection_status=${collection_status}&payment_id=${payment_id}&status=${status}&external_reference=${external_reference}&payment_type=${payment_type}&merchant_order_id=${merchant_order_id}&preference_id=${preference_id}&site_id=${site_id}&processing_mode=${processing_mode}&merchant_account_id=${merchant_account_id}`);
             setOrderBD(response.data.order)
 
         }catch(err){
