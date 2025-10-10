@@ -7,15 +7,27 @@ export default function ConfirmationPurchase() {
 
     const [ orderBD, setOrderBD ] = useState(null)
 
-    // const queryParams = new URLSearchParams(window.location.search);
-    // const collectionId = queryParams.get("collection_id");
-    // const status = queryParams.get("collection_status"); // o "status"
+    const queryParams = new URLSearchParams(window.location.search);
+    const collection_id = queryParams.get("collection_id");
+    const collection_status = queryParams.get("collection_status");
+    const payment_id = queryParams.get("payment_id");
+    const status = queryParams.get("status");
+    const external_reference = queryParams.get("external_reference");
+    const payment_type = queryParams.get("payment_type")
+    const merchant_order_id = queryParams.get("merchant_order_id")
+    const preference_id =queryParams.get("preference_id")
+    const site_id = queryParams.get("site_id")
+    const processing_mode = queryParams.get("processing_mode")
+    const merchant_account_id = queryParams.get("merchant_account_id")
+
+
+    console.log()
 
     const getOrders = async() => {
 
         try{
 
-            const response = await axios.get(`${BASE_URL}/confirmationPurchase`);
+            const response = await axios.get(`${BASE_URL}/confirmationPurchase/?collection_id=${collection_id}&collection_status=${collection_status}&payment_id=${payment_id}&status=${status}&external_reference=${external_reference}&payment_type=${payment_type}&merchant_order_id=${merchant_order_id}&preference_id=${preference_id}&site_id=${site_id}&processing_mode=${processing_mode}&merchant_account_id=${merchant_account_id}`);
             setOrderBD(response.data.order)
 
         }catch(err){
