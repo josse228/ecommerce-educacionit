@@ -51,20 +51,57 @@ export default function ConfirmationPurchase() {
         }, [])
 
     return(
-        <>
-            <h2>Confirmación de Compra</h2>
-            {orderBD ? (
-                <div>
-                <p>Gracias por tu compra, {orderBD.email}</p>
-                <ul>
+        <div style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "100vh",
+            backgroundColor: "#f5f5f5"
+        }}>
+            <div style={{
+                backgroundColor: "white",
+                padding: "2rem",
+                borderRadius: "10px",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                maxWidth: "500px",
+                width: "100%",
+                color: "black",
+                textAlign: "center"
+            }}>
+                <h2 style={{ color: "rgb(37, 96, 235)", marginBottom: "1rem" }}>Confirmación de Compra</h2>
+                {orderBD ? (
+                <>
+                    <p style={{ fontSize: "1.1rem" }}>Gracias por tu compra, <strong>{orderBD.email}</strong></p>
+                    <ul style={{ listStyle: "none", padding: 0, marginTop: "1rem" }}>
                     {orderBD.products.map((item) => (
-                    <li key={item.productId}>{item.name} - Cantidad: {item.quantity}</li>
+                        <li key={item.productId} style={{
+                        padding: "0.5rem",
+                        borderBottom: "1px solid #ddd"
+                        }}>
+                        {item.name} — Cantidad: {item.quantity}
+                        </li>
                     ))}
-                </ul>
-                </div>
-            ) : (
+                    </ul>
+                    <button
+                    style={{
+                        marginTop: "2rem",
+                        padding: "0.6rem 1.2rem",
+                        backgroundColor: "rgb(252, 139, 2)",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                        fontWeight: "bold"
+                    }}
+                    onClick={() => window.location.href = "/"}
+                    >
+                    Volver al inicio
+                    </button>
+                </>
+                ) : (
                 <p>Cargando orden...</p>
-            )}
-        </>
+                )}
+            </div>
+        </div>
     )
 }

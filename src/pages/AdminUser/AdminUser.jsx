@@ -162,7 +162,6 @@ export default function AdminUser(){
                                     <th>Usuario</th>
                                     <th>Email</th>
                                     <th>Rol de usuario</th>
-                                    <th>Contraseña</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>

@@ -86,10 +86,12 @@ export default function Checkout() {
                 </button>
             </div>
 
-            <div className="checkout-btn">
-                {preferenceId && (
-                <Wallet initialization={{ preferenceId }} />
-                )}
+            <div className="main-container checkout-btn">
+                <div className='checkout-btn-reduce'>
+                    {preferenceId && (
+                    <Wallet initialization={{ preferenceId }} />
+                    )}
+                </div>
             </div>
         </>
     );

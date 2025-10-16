@@ -6,7 +6,6 @@ export default function User({ user, handleEdit, handleDelete }){
                 <td>{user.firstName}</td>
                 <td>{user.email}</td>
                 <td>{user.rol}</td>
-                <td>{user.password}</td>
                 <td className="action-cell">
                     <button onClick={ () => handleEdit(user._id)} className="edit-btn"><i><FontAwesomeIcon icon={faPen}/></i></button>
                     <button onClick={ () => handleDelete(user._id)} className="delete-btn"><i><FontAwesomeIcon icon={faTrashCan} /></i></button>
